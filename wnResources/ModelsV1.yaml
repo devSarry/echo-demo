@@ -1,0 +1,74 @@
+---
+User:
+  hasMany: messages
+  fields:
+    name:
+      schema: string:50 unique
+      rules: required|min:3
+      tags: fillable
+    email:
+      schema: string unique
+      rules: required|email|unique:users,email
+      tags: fillable
+    password:
+      schema: string
+      rules: required|min:6
+      tags: fillable
+    isOnline:
+      schema: boolean default:true
+      rules:
+      tags: fillable
+Channel:
+  hasMany: message
+  fields:
+    name:
+      schema: string
+      rules: required
+      tags: fillable
+    isOpen:
+      schema: boolean default.false
+      rules:
+      tags: fillable
+SoundMoji:
+  belongsTo: user
+  fields:
+    name:
+      schema: string
+      rules: required|min:3
+      tags: fillable
+    code:
+      schema: string unique
+      rules: required|min:3
+      tags: fillable
+    user_id:
+      schema: integer unsigned
+      rules: required numeric
+      tags: fillable key
+    urlPath:
+      schema: string
+      rules: required
+      tags: fillable
+    fileName:
+      schema: string
+      rules: required
+      tags: fillable
+    plays:
+      schema: integer unsigned default:0
+      rules: requried numeric
+      tags: fillable
+Message:
+  belongsTo: user channel
+  fields:
+    text:
+      schema: text
+      rules: required
+      tags: fillable
+    user_id:
+      schema: integer unsigned
+      rules: required numeric
+      tags: fillable key
+    channel_id:
+      schema: integer unsigned
+      rules: required numeric
+      tags: fillable key
+  add: timestamps softDeletes
