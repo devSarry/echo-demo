@@ -40,10 +40,6 @@ SoundMoji:
       schema: string unique
       rules: required|min:3
       tags: fillable
-    user_id:
-      schema: integer unsigned
-      rules: required numeric
-      tags: fillable key
     urlPath:
       schema: string
       rules: required
@@ -57,16 +53,13 @@ SoundMoji:
       rules: requried|numeric
       tags: fillable
 Message:
-  belongsTo: user channel
+  belongsTo: user
+  belongsToMany: channel
   fields:
     text:
       schema: text
       rules: required
       tags: fillable
-    user_id:
-      schema: integer unsigned
-      rules: required numeric
-      tags: fillable key
     channel_id:
       schema: integer unsigned
       rules: required numeric
