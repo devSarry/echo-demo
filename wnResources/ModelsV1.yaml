@@ -1,6 +1,6 @@
 ---
 User:
-  hasMany: messages
+  hasMany: messages SoundMoji
   fields:
     name:
       schema: string:50
@@ -15,7 +15,7 @@ User:
       rules: required|min:6
       tags: fillable
     isOnline:
-      schema: boolean
+      schema: boolean default.false
       rules:
       tags: fillable
 Channel:
@@ -26,7 +26,7 @@ Channel:
       rules: required
       tags: fillable
     isOpen:
-      schema: boolean
+      schema: boolean default.false
       rules:
       tags: fillable
 SoundMoji:
@@ -49,7 +49,7 @@ SoundMoji:
       rules: required
       tags: fillable
     plays:
-      schema: integer unsigned
+      schema: integer unsigned default.0
       rules: requried|numeric
       tags: fillable
 Message:
@@ -60,8 +60,4 @@ Message:
       schema: text
       rules: required
       tags: fillable
-    channel_id:
-      schema: integer unsigned
-      rules: required numeric
-      tags: fillable key
   add: timestamps softDeletes
