@@ -3,7 +3,7 @@ User:
   hasMany: messages
   fields:
     name:
-      schema: string:50 unique
+      schema: string:50
       rules: required|min:3
       tags: fillable
     email:
@@ -15,7 +15,7 @@ User:
       rules: required|min:6
       tags: fillable
     isOnline:
-      schema: boolean default:true
+      schema: boolean
       rules:
       tags: fillable
 Channel:
@@ -26,7 +26,7 @@ Channel:
       rules: required
       tags: fillable
     isOpen:
-      schema: boolean default.false
+      schema: boolean
       rules:
       tags: fillable
 SoundMoji:
@@ -53,8 +53,8 @@ SoundMoji:
       rules: required
       tags: fillable
     plays:
-      schema: integer unsigned default:0
-      rules: requried numeric
+      schema: integer unsigned
+      rules: requried|numeric
       tags: fillable
 Message:
   belongsTo: user channel
