@@ -22,3 +22,39 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+/**
+ * Factory definition for model App\User.
+ */
+$factory->define(App\User::class, function (Faker\Generator $faker) {
+    return [
+        // Fields here
+    ];
+});
+
+/**
+ * Factory definition for model App\Channel.
+ */
+$factory->define(App\Channel::class, function (Faker\Generator $faker) {
+    return [
+        // Fields here
+    ];
+});
+
+/**
+ * Factory definition for model App\SoundMoji.
+ */
+$factory->define(App\SoundMoji::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => $faker->key,
+    ];
+});
+
+/**
+ * Factory definition for model App\Message.
+ */
+$factory->define(App\Message::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => $faker->key,
+    ];
+});
