@@ -8,6 +8,10 @@
                     <div class="panel-body">
                         I'm an example component!
                     </div>
+
+                    <ul>
+                        <li v-for="m in messages">{{ m.text }}</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -16,8 +20,20 @@
 
 <script>
     export default {
+        data() {
+            return {
+                messages: []
+            }
+        },
         mounted() {
-            console.log('Component ready.')
+            console.log('Component ready.');
+
+            Echo.channel('channel.1').listen('MessageCreated', e => {
+                    this.messages.push(e.message)
+                    console.log(e);
+            });
+
+
         }
     }
 </script>

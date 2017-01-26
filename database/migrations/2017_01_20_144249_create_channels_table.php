@@ -12,6 +12,8 @@ class CreateChannelsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->boolean('isOpen')->default(false);
+            $table->timestamps();
+
             // Constraints declaration
 
         });

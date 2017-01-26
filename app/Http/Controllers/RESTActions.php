@@ -1,7 +1,11 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+
+use JWTAuth;
 
 trait RESTActions {
 
@@ -9,6 +13,7 @@ trait RESTActions {
     public function all()
     {
         $m = self::MODEL;
+
         return $this->respond(Response::HTTP_OK, $m::all());
     }
 
@@ -55,5 +60,5 @@ trait RESTActions {
     {
         return response()->json($data, $status);
     }
-
+    
 }

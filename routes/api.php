@@ -7,29 +7,14 @@ $api = app(Router::class);
 
 $api->version('v1', function (Router $api) {
     $api->group(['prefix' => 'auth'], function(Router $api) {
-        $api->post('signup', 'api\\Api\\V1\\Controllers\\SignUpController@signUp');
-        $api->post('login', 'api\\Api\\V1\\Controllers\\LoginController@login');
+        $api->post('signup', 'App\\Api\\V1\\Controllers\\SignUpController@signUp');
+        $api->post('login', 'App\\Api\\V1\\Controllers\\LoginController@login');
 
-        $api->post('recovery', 'api\\Api\\V1\\Controllers\\ForgotPasswordController@sendResetEmail');
-        $api->post('reset', 'api\\Api\\V1\\Controllers\\ResetPasswordController@resetPassword');
+        $api->post('recovery', 'App\\Api\\V1\\Controllers\\ForgotPasswordController@sendResetEmail');
+        $api->post('reset', 'App\\Api\\V1\\Controllers\\ResetPasswordController@resetPassword');
     });
 
     $api->group(['middleware' => 'jwt.auth'], function(Router $api) {
-
-        /**
-         * Routes for resource message
-         */
-        $api->get('message', 'App\Http\Controllers\MessagesController@all');
-        $api->get('message/{id}', 'App\Http\Controllers\MessagesController@get');
-        $api->post('message', 'App\Http\Controllers\MessagesController@add');
-        $api->put('message/{id}', 'App\Http\Controllers\MessagesController@put');
-        $api->delete('message/{id}', 'App\Http\Controllers\MessagesController@remove');
-
-        $api->get('protected', function() {
-            return response()->json([
-                'message' => 'Access to this item is only for authenticated user. Provide a token in your request!'
-            ]);
-        });
 
         $api->get('refresh', [
             'middleware' => 'jwt.refresh',
@@ -39,40 +24,64 @@ $api->version('v1', function (Router $api) {
                 ]);
             }
         ]);
+
+        /*
+         *  Routes for getting user info
+         */
+        $api->get('user', 'App\Http\Controllers\UsersController@all');
+        $api->get('user/{id}', 'App\Http\Controllers\UsersController@get');
+
+
+        /**
+         * Routes for resource message
+         */
+        $api->get('channel/{channel}/message', 'App\Http\Controllers\MessagesController@all');
+        $api->get('channel/1/message/{id}', 'App\Http\Controllers\MessagesController@get');
+        $api->post('channel/{channel}/message', 'App\Http\Controllers\MessagesController@add');
+
+        /** Create a middleware allow for admins to remove or edit messages*/
+
+        //$api->put('message/{id}', 'App\Http\Controllers\MessagesController@put');
+        //$api->delete('message/{id}', 'App\Http\Controllers\MessagesController@remove');
+
+
+
+        /**
+         * Routes for resource sound-moji
+         */
+        $api->get('sound-moji', 'App\Http\Controllers\SoundMojisController@all');
+        $api->get('sound-moji/{id}', 'App\Http\Controllers\SoundMojisController@get');
+        $api->post('sound-moji', 'App\Http\Controllers\SoundMojisController@add');
+        $api->put('sound-moji/{id}', 'App\Http\Controllers\SoundMojisController@put');
+        $api->delete('sound-moji/{id}', 'App\Http\Controllers\SoundMojisController@remove');
+
+
+        /**
+         * Routes for resource channel feature to be added later.
+         */
+        $api->get('channel', 'App\Http\Controllers\ChannelsController@all');
+        $api->get('channel/{id}', 'App\Http\Controllers\ChannelsController@get');
+        //$api->post('channel', 'App\Http\Controllers\ChannelsController@add');
+        //$api->put('channel/{id}', 'App\Http\Controllers\ChannelsController@put');
+        //$api->delete('channel/{id}', 'App\Http\Controllers\ChannelsController@remove');
+
+
+
     });
 
-    $api->get('hello', function() {
-        return response()->json([
-            'message' => 'This is a simple example of item returned by your APIs. Everyone can see it.'
-        ]);
-    });
 
     /**
      * Routes for resource user
      */
-    $api->get('user', 'App\Http\Controllers\UsersController@all');
-    $api->get('user/{id}', 'App\Http\Controllers\UsersController@get');
-    $api->post('user', 'App\Http\Controllers\UsersController@add');
-    $api->put('user/{id}', 'App\Http\Controllers\UsersController@put');
-    $api->delete('user/{id}', 'App\Http\Controllers\UsersController@remove');
+    //$api->get('user', 'App\Http\Controllers\UsersController@all');
+    //$api->get('user/{id}', 'App\Http\Controllers\UsersController@get');
 
-    /**
-     * Routes for resource channel
-     */
-    $api->get('channel', 'App\Http\Controllers\ChannelsController@all');
-    $api->get('channel/{id}', 'App\Http\Controllers\ChannelsController@get');
-    $api->post('channel', 'App\Http\Controllers\ChannelsController@add');
-    $api->put('channel/{id}', 'App\Http\Controllers\ChannelsController@put');
-    $api->delete('channel/{id}', 'App\Http\Controllers\ChannelsController@remove');
+    //$api->put('user/{id}', 'App\Http\Controllers\UsersController@put');
+    //$api->delete('user/{id}', 'App\Http\Controllers\UsersController@remove');
 
-    /**
-     * Routes for resource sound-moji
-     */
-    $api->get('sound-moji', 'SoundMojisController@all');
-    $api->get('sound-moji/{id}', 'SoundMojisController@get');
-    $api->post('sound-moji', 'SoundMojisController@add');
-    $api->put('sound-moji/{id}', 'SoundMojisController@put');
-    $api->delete('sound-moji/{id}', 'SoundMojisController@remove');
+
+
+
 
 
 

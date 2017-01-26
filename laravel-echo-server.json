@@ -1,0 +1,24 @@
+{
+	"authHost": null,
+	"authEndpoint": "/broadcasting/auth",
+	"clients": [
+		{
+			"appId": "APP_ID",
+			"key": "00d77a67902d63fda1895a8f2d06db93"
+		}
+	],
+	"database": "redis",
+	"databaseConfig": {
+		"redis": {},
+		"sqlite": {
+			"databasePath": "/database/laravel-echo-server.sqlite"
+		}
+	},
+	"devMode": false,
+	"host": "yeller.app",
+	"port": "6001",
+	"protocol": "http",
+	"socketio": {},
+	"sslCertPath": "",
+	"sslKeyPath": ""
+}

@@ -14,9 +14,14 @@ class Channel extends Model {
 
     public $timestamps = false;
 
-    public function message()
+    public function messages()
     {
-        return $this->hasMany("App\Models\Message");
+        return $this->belongsToMany(Message::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 
 

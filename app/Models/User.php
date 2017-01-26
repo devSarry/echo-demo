@@ -1,12 +1,20 @@
-<?php namespace App\Models;
+<?php
 
-use Illuminate\Database\Eloquent\Model;
+namespace App\Models;
 
-class User extends Model {
+use Hash;
+
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable
+{
+    use Notifiable;
 
     protected $fillable = ["name", "email", "password", "isOnline"];
 
-    protected $dates = [];
+    protected  $hidden = ['password'];
+
 
     public static $rules = [
         "name" => "required|min:3",
@@ -14,16 +22,30 @@ class User extends Model {
         "password" => "required|min:6",
     ];
 
-    public $timestamps = false;
-
+    /**
+     * Automatically creates hash for the user password.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
+    
     public function messages()
     {
-        return $this->hasMany("App\Models\Message");
+        return $this->hasMany(Message::class);
     }
 
     public function SoundMoji()
     {
-        return $this->hasMany("App\Models\SoundMoji");
+        return $this->hasMany(SoundMoji::class);
+    }
+
+    public function channel()
+    {
+        return $this->belongsToMany(Channel::class);
     }
 
 

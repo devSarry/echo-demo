@@ -14,6 +14,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('isOnline')->default(false);
+            $table->timestamps();
+
             // Constraints declaration
 
         });

@@ -1,8 +1,10 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 class SoundMojisController extends Controller {
 
-    const MODEL = "App\SoundMoji";
+    const MODEL = "App\Models\SoundMoji";
 
     use RESTActions;
 
